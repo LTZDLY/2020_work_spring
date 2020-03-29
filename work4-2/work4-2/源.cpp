@@ -3,15 +3,15 @@
 #include<vector> 
 #include<limits.h>
 #include<sstream>
-#define LEAP_YEAR 366
-#define NON_LEAP_YEAR 365
-#define LEAP_MONTH 29
-#define EVEN_MONTH 28
-#define BIG_MONTH 31
-#define SMALL_MONTH 30
+#define YEAR_LEAP 366
+#define YEAR_NON_LEAP 365
+#define MONTH_LEAP 29
+#define MONTH_EVEN 28
+#define MONTH_BIG 31
+#define MONTH_SMALL 30
 
 using namespace std;
-
+//将只含数字字符的字符串转换成短整型
 int to_int(const string s) {
 	stringstream ss;
 	int num;
@@ -19,6 +19,7 @@ int to_int(const string s) {
 	ss >> num;
 	return num;
 }
+//将只含数字字符的字符串转换成长整型
 unsigned long long to_long (const string s) {
 	stringstream ss;
 	unsigned long long num;
@@ -26,8 +27,8 @@ unsigned long long to_long (const string s) {
 	ss >> num;
 	return num;
 }
-
-void string_split(const string& s, vector<string>& v, const string& c) {
+//分割文本函数
+void string_split(const string& s/*被分割字符串*/, vector<string>& v/*保存被分割后的字符串*/, const string& c/*被分割的依据*/) {
 	string::size_type pos1, pos2;
 	pos2 = s.find(c);
 	pos1 = 0;
@@ -39,9 +40,9 @@ void string_split(const string& s, vector<string>& v, const string& c) {
 	}
 	if (pos1 != s.length())
 		v.push_back(s.substr(pos1));
-}//分割文本函数
-
-int leap_year_check(const unsigned long long year) {
+}
+//检查是否为闰年
+int check_leap_year(const unsigned long long year) {
 	if (year % 100 == 0){
 		if (year % 400 == 0) return 0;
 		else return 1;
@@ -49,11 +50,13 @@ int leap_year_check(const unsigned long long year) {
 	else if (year % 4 == 0) return 0;
 	else return 1;
 }
+//根据是否为闰年返回一年中的天数
 unsigned long long year_check(const unsigned long long year) {
-	if (!leap_year_check(year))return LEAP_YEAR;
-	else return NON_LEAP_YEAR;
+	if (!check_leap_year(year))return YEAR_LEAP;
+	else return YEAR_NON_LEAP;
 }
-int month_check(const unsigned long long year, const int month) {
+//根据年份和月份返回一个月中的日期
+int check_month(const unsigned long long year, const int month) {
 	switch (month){
 	case 1:
 	case 3:
@@ -62,41 +65,41 @@ int month_check(const unsigned long long year, const int month) {
 	case 8:
 	case 10:
 	case 12:
-		return BIG_MONTH;
+		return MONTH_BIG;
 	case 4:
 	case 6:
 	case 9:
 	case 11:
-		return SMALL_MONTH;
+		return MONTH_SMALL;
 	case 2:
-		if (!leap_year_check(year))return LEAP_MONTH;
-		else return EVEN_MONTH;
+		if (!check_leap_year(year))return MONTH_LEAP;
+		else return MONTH_EVEN;
 	default:
 		return 0;
 	}
 }
-
-int date_check(const unsigned long long year, const int month, const int day) {
-	int day_max = 0;
-	day_max = month_check(year, month);
+//检查日是否合理
+int check_day(const unsigned long long year, const int month, const int day) {
+	int day_max = 0;//表示该年月下的日的最大值
+	day_max = check_month(year, month);
 	if (day_max < day) {
 		cout << "日期格式错误，请重新输入！" << endl;
 		return 1;
 	}
 	else return 0;
 }
-
-int date_check(string& s) {
-	cin >> s;
+//检查日期是否合理
+int check_date(string& s) {
+	cin >> s;//输入
 	for (unsigned int i = 0; i < s.size(); i++) {
-		if (s[i] != '-' && (s[i] < '0' || s[i] > '9')) {
+		if (s[i] != '-' && (s[i] < '0' || s[i] > '9')) {//若输入中除了'-'含有其他非数字字符则报错
 			cout << "日期格式错误，请重新输入！" << endl;
 			return 1;
 		}
 	}
 	vector<string> text_spilt;
 	string_split(s, text_spilt, "-");
-	if (text_spilt.size() != 3 || (text_spilt[1].size() > 2 || text_spilt[2].size() > 2)) {
+	if (text_spilt.size() != 3 || (text_spilt[1].size() > 2 || text_spilt[2].size() > 2)) {//若格式不为"YYYY-MM-DD"则报错
 		cout << "日期格式错误，请重新输入！" << endl;
 		return 1;
 	}
@@ -104,11 +107,11 @@ int date_check(string& s) {
 		unsigned long long year = to_long(text_spilt[0]);
 		int month = to_int(text_spilt[1]);
 		int day = to_int(text_spilt[2]);
-		if (year == 0 || month == 0 || day == 0) {
+		if (year == 0 || month == 0 || day == 0) {//若有一个值为0则报错
 			cout << "日期格式错误，请重新输入！" << endl;
 			return 1;
 		}
-		return date_check(year, month, day);
+		return check_day(year, month, day);//检查日是否合理
 	}
 	return 0;
 }
@@ -121,7 +124,7 @@ unsigned long long to_date_stamp(const string date) {
 	int month = to_int(text_spilt[1]);
 	int day = to_int(text_spilt[2]);
 	date_stamp += day;
-	for (int i = 1; i < month; i++)date_stamp += month_check(year, i);
+	for (int i = 1; i < month; i++)date_stamp += check_month(year, i);
 	for (unsigned long long i = 1; i < year; i++)date_stamp += year_check(i);
 	return date_stamp;
 }
@@ -130,9 +133,9 @@ int main() {
 	vector<string> text_spilt;
 	string input_before, input_after;
 	cout << "请输入第一个日期(格式为YYYY-MM-DD)" << endl;
-	while(date_check(input_before));
+	while(check_date(input_before));
 	cout << "请输入第二个日期(格式为YYYY-MM-DD)" << endl;
-	while(date_check(input_after));
+	while(check_date(input_after));
 	unsigned long long date_stamp_before = to_date_stamp(input_before);
 	unsigned long long date_stamp_after = to_date_stamp(input_after);
 	unsigned long long date_interval = 0;
