@@ -1,5 +1,6 @@
 ﻿#include<iostream>
 #include<string>
+#include<stdlib.h>
 
 using namespace std;
 int check_input(int &num_last, int &num_through) {
@@ -7,9 +8,6 @@ int check_input(int &num_last, int &num_through) {
 	if (num_last <= 0 || num_last >= 1000) {
 		cout << "输入错误！M的值应大于0小于1000！请重新输入K和M！" << endl;
 		return 1;
-	}
-	else if () {
-
 	}
 	else if (num_through <= 0 || num_through >= 1000) {
 		cout << "输入错误！K的值应大于0小于1000！请重新输入K和M！" << endl;

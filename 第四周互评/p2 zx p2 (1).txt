@@ -1,0 +1,94 @@
+#include<iostream>
+#include<string>
+#include<cmath>
+using namespace std;
+
+class Time
+{
+public:
+	Time(int year=0,int month=0,int day=0):year(year),month(month),day(day){}
+	Time(Time *point){year=point->year,month=point->month,day=point->day;}
+	~Time(){}
+	void addYear(int num){year += num;}
+	void addMonth(int num){month += num;}
+	void addDay(int num){day += num;}
+	void changeYear(int num){year = num;}
+	void changeMonth(int num){month = num;}
+	void changeDay(int num){day = num;}
+	int getYear(){return year;}
+	int getMonth(){return month;}
+	int getDay(){return day;}
+private:
+	int year;
+	int month;	
+	int day;	
+};
+
+bool isLeapYear(int yearNum)
+{
+	if(yearNum%4 == 0 && yearNum%100 != 0)
+		return true;
+	else if(yearNum%400 == 0)
+		return true;
+	else
+		return false;
+}
+
+int dayInMonth(int i,int year)
+{
+	if( i%2 == 1 && i<8) return 31;
+		else if(i%2 == 0 && i<8 && i!=2) return 30;
+		else if(i%2 == 1 && i>7) return 30;
+		else if(i%2 == 0 && i>7) return 31;
+		else if(isLeapYear(year) && i == 2) return 29;
+		else if(!isLeapYear(year) && i == 2) return 28;
+}
+
+int tmain()
+{
+	string str1,str2;
+	cin>>str1>>str2;
+	Time time1,time2;
+	int dayNum=0;
+	for(int i=0;i<4;i++)
+	{
+		time1.addYear((str1[3-i]-'0')*pow(10,i));
+		time2.addYear((str2[3-i]-'0')*pow(10,i));
+		if(i<2)
+		{
+			time1.addMonth((str1[6-i]-'0')*pow(10,i));
+			time2.addMonth((str2[6-i]-'0')*pow(10,i));
+			time1.addDay((str1[9-i]-'0')*pow(10,i));
+			time2.addDay((str2[9-i]-'0')*pow(10,i));
+		}
+	}
+	if(time1.getYear()>time2.getYear())
+	{
+		int temp;
+		temp=time1.getYear();
+		time1.changeYear(time2.getYear());
+		time2.changeYear(temp);
+		temp=time1.getMonth();
+		time1.changeMonth(time2.getMonth());
+		time2.changeMonth(temp);
+		temp=time1.getDay();
+		time1.changeDay(time2.getDay());
+		time2.changeDay(temp);
+	}
+
+	for(int i=time1.getYear()+1;i<time2.getYear();i++)
+	{
+		if(isLeapYear(i)) dayNum += 366;
+		else dayNum += 365;
+	}
+	for(int i=time1.getMonth()+1;i<13;i++)
+		dayNum += dayInMonth(i,time1.getYear());
+	for(int i=1;i<time2.getMonth();i++)
+		dayNum += dayInMonth(i,time2.getYear());
+	dayNum = dayNum + dayInMonth(time1.getMonth(),time1.getYear()) - time1.getDay();
+	dayNum += time2.getDay();
+	cout<<dayNum;
+	getchar();
+	getchar();
+	return 0;
+} 

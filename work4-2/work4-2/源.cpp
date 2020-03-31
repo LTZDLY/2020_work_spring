@@ -11,6 +11,8 @@
 #define MONTH_SMALL 30
 
 using namespace std;
+//不考虑任何日期上的特殊事件如被删去的10天，将所有的符合满百被400整除其余被4整除的年份认为是闰年
+
 //将只含数字字符的字符串转换成短整型
 int to_int(const string s) {
 	stringstream ss;
@@ -34,7 +36,6 @@ void string_split(const string& s/*被分割字符串*/, vector<string>& v/*保�
 	pos1 = 0;
 	while (string::npos != pos2){
 		v.push_back(s.substr(pos1, pos2 - pos1));
-
 		pos1 = pos2 + c.size();
 		pos2 = s.find(c, pos1);
 	}
