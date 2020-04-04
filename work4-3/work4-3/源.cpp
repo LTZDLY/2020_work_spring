@@ -1,9 +1,10 @@
 ﻿#include<iostream>
 #include<string>
+#include<vector>
 using namespace std;
 
 template<typename typ_arb>
-void sort_quick(const int left/*需排序的左端*/, const int right/*需排序的右端*/, typ_arb* arr/*需排序的数组*/) {
+void sort_quick(const int left/*需排序的左端*/, const int right/*需排序的右端*/, typ_arb& arr/*需排序的数组*/) {
 	//排序使用的快速排序算法，不考虑左端或右端的值超过int范围的情况
 	int mid = (left + right) / 2;
 	int i, j;//定义左端和右端
@@ -48,5 +49,8 @@ int main() {
 	sort_quick(0, length_c - 1, c);
 	print_arr(length_c, c);
 	//给string型数组排序中，优先考虑前面字母在ASCII码中的字典序，而不是各成员的长度
+	vector<string> s_test_vec({ "Mike", "Alex", "Picasso", "Tom", "John" });
+	int length_d = s_test_vec.size();
+	sort_quick(0, length_d - 1, s_test_vec);
 	return 0;
 }
