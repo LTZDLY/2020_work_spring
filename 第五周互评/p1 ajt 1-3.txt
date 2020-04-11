@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+
+#define LL long long
+
+bool solve(LL &ans)
+{
+	LL num = 0;//num为输入数的总数，ans为最终答案
+	LL elem_scanf = 0;//存输入的数，直接覆盖
+	while (cin >> elem_scanf)
+	{
+		if (elem_scanf < 0)//输入的数小于0
+			return false;
+		num++;
+		ans ^= elem_scanf ^ num;//最后谁^了一次，那就是答案
+		if (cin.peek() == '\n')//回车代表输入完毕
+			break;
+	}
+	if (cin.fail())//基本上没有输入检测
+		return false;
+	else
+	     return true;
+}
+
+int main()
+{
+	LL ans = 0;
+	if (solve(ans))
+		cout << ans << endl;
+	else
+		cout << "Wrong Input!" << endl;
+	return 0;
+}

@@ -1,0 +1,45 @@
+#include<iostream>
+#include<vector>
+#include<array>
+using namespace std;
+
+void calculate(const vector<int>&vec)
+{
+	double sum = 0, average = 0;
+	for (int i = 0; i < vec.size(); i++)
+	{
+		sum += vec[i];
+	}
+	average = sum / vec.size();
+	cout << sum << ' ' << average;
+}
+
+void calculate(const int*arr, const int size)//函数重载
+{
+	double sum = 0, average = 0;
+	for (int i = 0; i < size; i++)
+	{
+		sum += arr[i];
+	}
+	average = sum / size;
+	cout << sum << ' ' << average;
+}
+
+int main()
+{
+	int length, val = 0;
+	cin >> length;//输入第一个数
+	vector<int>my_vec;
+	int* my_arr = new int[length];
+
+	for (int i = 0; i < length; i++)//输入数据,装入两个容器
+	{
+		cin >> val;
+		my_vec.push_back(val);
+		my_arr[i] = val;
+	}
+	calculate(my_vec);//以vector为例输出
+	//calculate(my_arr,length);//以array为例输出
+	delete[] my_arr;
+	return 0;
+}

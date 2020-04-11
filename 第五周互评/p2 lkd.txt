@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+int main() {
+    int n, temp;
+    double aveArr = 0, aveVec = 0,sumArr = 0, sumVec = 0;;
+    cin >> n;
+    int arr[n];
+    vector<int> vec;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> temp;
+        arr[i] = temp;
+        vec.push_back(temp);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        sumArr += arr[i];
+        sumVec += vec[i];
+    }
+    aveArr = sumArr / n;
+    aveVec = sumVec / n;
+    cout << sumArr << " "<< aveArr <<endl;
+    return 0;
+}

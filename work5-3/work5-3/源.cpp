@@ -7,6 +7,7 @@ void sort_quick(int left, int right, std::vector<int>& arr);
 void print_output(const std::vector<int>& arr);
 
 int main() {
+	//Regardless of array length and array elements beyond the range of int or the array is float
 	std::vector<int>input_box;
 	std::cout << "Please enter values. Enter EOF or a non-numeric value to end input." << std::endl;
 	while (input_check(input_box));
@@ -23,7 +24,7 @@ bool input_check(std::vector<int> &input_box){
 		return true;
 	}
 	else if (input_box.size() == 0 || input_box.size() % 2 != 0) {
-		std::cout << "ERROR: Invalid input, the number of inputs must be even." << std::endl;
+		std::cout << "ERROR: Invalid input detected, the number of inputs must be even." << std::endl;
 		exit(-1);
 	}
 	else return false;

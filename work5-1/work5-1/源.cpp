@@ -6,12 +6,14 @@ bool input_check(std::vector<int> &input_box, int &input_max, int &input_num);
 void value_search(const std::vector<int> &input_box, int input_max);
 
 int main() {
+	//Regardless of array length and array elements beyond the range of int
 	int input_max = 0;
 	int input_num = 0;
 	std::vector<int> input_box;
 	std::cout << "Please enter values. Enter EOF or a non-numeric value to end input." << std::endl;
 	//When the input is EOF or a non-numeric value value, it returns 0 and the loop exits
 	while (input_check(input_box, input_max, input_num));
+	if (input_num == input_max)input_box.push_back(input_box[0]);
 	value_search(input_box, input_max);
 	return 0;
 }
@@ -28,7 +30,7 @@ bool input_check(std::vector<int> &input_box, int &input_max, int &input_num) {
 		std::cout << "ERROR: At least one input is required. Please try again." << std::endl;
 		exit(-1);
 	}
-	else if (input_num - input_max < -1) {
+	else if (input_num - input_max <= -1) {
 		std::cout << "ERROR: Invaild input detected. Please try again." << std::endl;
 		exit(-1);
 	}
@@ -41,9 +43,9 @@ void value_search(const std::vector<int> &input_box, int input_max) {
 		std::cout << "ERROR: Memory request error.";
 		exit(-1);
 	}
-	for (int i = 0; i < input_max; i++) num[i] = 0;
-	for (int i = 0; i < input_max; i++) num[input_box[i]] = -1;
-	for (int i = 0; i < input_max; i++) {
+	for (int i = 0; i <= input_max; i++) num[i] = 0;
+	for (int i = 0; i <= input_max; i++) num[input_box[i]] = -1;
+	for (int i = 0; i <= input_max; i++) {
 		if (num[i] == 0) {
 			std::cout << i << std::endl;
 			delete[] num;

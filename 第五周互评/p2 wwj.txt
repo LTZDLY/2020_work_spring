@@ -1,0 +1,35 @@
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+int main()
+{
+ const int len = 100;
+ int n,array[len];
+ double avre_array, avre_vec;
+ int sum_array = 0, sum_vec = 0;
+ cin >> n;
+ vector<int>vec(n);
+ for (int ix = 0; ix < n; ix++)
+ {
+  cin >> array[ix];
+  vec[ix] = array[ix];
+ }
+ //array
+ for (int ix = 0; ix < n; ix++)
+ {
+  sum_array += array[ix];
+ }
+ avre_array = sum_array / n;
+ //vector
+ for(int ix = 0; ix < vec.size(); ix++)
+ {
+  sum_vec += vec[ix];
+ }
+ avre_vec = sum_vec / n;
+ if (sum_array == sum_vec)
+  cout << sum_array << ' '<<avre_array;
+ else
+  cout << "error";
+ return 0;
+}

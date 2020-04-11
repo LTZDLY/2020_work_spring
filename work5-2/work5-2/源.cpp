@@ -54,11 +54,10 @@ long sum(int num, const T&p) {
 	for (int i = 0; i < num; i++)temp += p[i];
 	return temp;
 }
-
-inline double avg(int num, long sum) {
+inline 
+double avg(int num, long sum) {
 	return (double)sum / (double)num;
 }
-
 bool input_check(int &input_num) {
 	if (!(std::cin >> input_num)) {
 		std::cout << "ERROR: Input is not numeric. Please check your inputs." << std::endl;

@@ -1,0 +1,29 @@
+#include<iostream>
+
+using namespace std;
+
+//result=the sum of 0 to n minus the sum of the numbers  entered
+
+int main()
+
+{
+
+    long long n=0,result=0,number;
+
+    do
+
+    {
+
+        cin>>number;
+
+        n++;
+
+        result=result+n-number;//add n while subtract the number inputted
+
+    }while(cin.get()!='\n');
+
+    cout<<result<<endl;
+
+    return 0;
+
+}
