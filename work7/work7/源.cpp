@@ -45,13 +45,13 @@ public:
 	void Set(const string&);
 	long CalPeri();
 	long CalArea();
-	void InfoPrint(std::ostream &os);
+	void InfoPrint(std::ostream&);
 	Point getUpperLeft();
 	Point getLowerRight();
 	void operator= (const Rectangle);
 	bool operator> (const Rectangle);
 	bool operator< (const Rectangle);
-	friend std::ostream &operator<<(std::ostream &os, Rectangle &D);
+	friend std::ostream &operator<<(std::ostream&, Rectangle&);
 private:
 	Point upper_left_;
 	Point lower_right_;
@@ -111,7 +111,9 @@ std::ostream &operator<<(std::ostream &os, Rectangle &D) {
 template <typename T> struct Node {
 	T val_;
 	Node* next_;
+	Node();
 };
+template <typename T> Node<T>::Node() { next_ = nullptr; }
 template <typename T> class List {
 private:
 	Node<T>* head;
@@ -126,6 +128,7 @@ public:
 
 template <typename T> List<T>::List() {
 	head = new Node<T>();
+	head->next_ = nullptr;
 }
 template <typename T> List<T>::~List() {
 	Node<T>* cur = head;
@@ -207,20 +210,6 @@ template <typename T> void List<T>::print(int num, std::ostream& os) {
 		}
 		os << cur->val_ << std::endl;
 	}
-	/*
-		os << val_ << std::endl;
-		for (int i = 1; i < num; i++) {
-			cur = cur->next_;
-			os << val_ << std::endl;
-		}
-		return;
-	}
-	for (int i = 3; i < num; i++) cur = cur->next_;
-	os << val_ << std::endl;
-	for (int i = 0; i < 1; i++) {
-		cur = cur->next_;
-		os << val_ << std::endl;
-	}*/
 	return;
 }
 
