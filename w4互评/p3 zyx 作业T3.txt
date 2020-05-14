@@ -1,0 +1,52 @@
+#include<iostream>
+
+using namespace std;
+
+template<class T>
+//选择排序
+void SortArr(T a[], int length)
+{
+	int minSeq;
+	T minValue;
+	for (int i = 0; i < length - 1; i++)//start to scan
+	{
+		minSeq = i;
+		minValue = a[i];
+		for (int j = minSeq; j < length; j++)
+		{
+			if (a[j] < minValue)
+			{
+				minValue = a[j];
+				minSeq = j;
+			}
+		}
+		a[minSeq] = a[i];
+		a[i] = minValue;
+	}
+}
+template<class T>
+void to_print(T arr[], int num) 
+{  
+	for (int i = 0; i < num; i++) 
+		cout << arr[i]<<' ';
+}
+int main() {
+	char a[] = "njxlari";
+	int num = sizeof(a) / sizeof(a[0]); 
+	SortArr(a, num);
+	to_print(a, num);
+	cout << endl;
+
+	float b[] = { 2.1,3.3,12.4,5.6,5.5,9.0 };
+	int num_fl = sizeof(b) / sizeof(b[0]);
+	SortArr(b, num_fl);
+	to_print(b, num_fl);
+	cout << endl;
+
+	int c[] = {1,2,4,3,7,6,4};
+	int num_arr = sizeof(c) / sizeof(c[0]);//计算数量
+	SortArr(c, num_arr);
+	to_print(c, num_arr);
+	system("pause");
+	return 0;
+}
