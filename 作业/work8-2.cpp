@@ -3,6 +3,7 @@
 #include<string>
 #include<ctime> 
 #include<sstream>
+
 using std::vector;
 using std::string;
 
@@ -20,6 +21,18 @@ private:
 	int x_;
 	int y_;
 };
+
+class Plate {
+public:
+	bool Put(Orange, int, int);
+	void Run();
+	void BfsSearch(vector<string>, int);
+	bool Check(int, int[3][3]);
+	string Print(int[3][3]);
+private:
+	Orange obj_[3][3];
+};
+
 
 Orange::Orange() {
 	empty_ = true;
@@ -46,17 +59,6 @@ void Orange::operator=(const Orange obj) {
 	x_ = obj.x_;
 	y_ = obj.y_;
 }
-
-class Plate {
-public:
-	bool Put(Orange, int, int);
-	void Run();
-	void BfsSearch(vector<string>, int);
-	bool Check(int, int[3][3]);
-	string Print(int[3][3]);
-private:
-	Orange obj_[3][3];
-};
 
 bool Plate::Put(Orange obj, int x, int y) {
 	if (!obj_[x][y].empty_) return false;
@@ -137,6 +139,7 @@ string Plate::Print(int map[3][3]) {
 	}
 	return str;
 }
+
 
 void StringSplit(const string&, vector<string>&, const string&);
 
